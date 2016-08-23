@@ -1,0 +1,25 @@
+{
+  "variables": {
+    "do_api_token": "",
+    "do_region": "nyc3",
+    "do_size": "1gb",
+    "do_image": "ubuntu-14-04-x64"
+  },
+
+  "builders": [{
+    "type": "digitalocean",
+    "api_token": "{{user `do_api_token`}}",
+    "region": "{{user `do_region`}}",
+    "size": "{{user `do_size`}}",
+    "image": "{{user `do_image`}}"
+  }],
+
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo apt-get update",
+      "sudo apt-get install -y apache2"
+    ]
+  }]
+}
