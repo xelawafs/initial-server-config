@@ -1,11 +1,8 @@
 ---
 - hosts: all
+  vars_files:
+    - vars.yml
   tasks:
-    - name: Installs apache web server
-      apt: pkg=apache2 state=installed update_cache=true
-      notify:
-        - start apache2
-
-  handlers:
-    - name: start apache2
-      service: name=apache2 state=started
+    - name: Installs required system packages listed in the vars.yml file
+      apt: pkg={{ item }} state=installed update_cache=true
+      with_items: "{{ system_packages }}"
